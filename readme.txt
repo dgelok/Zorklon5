@@ -2,8 +2,5 @@ Zorklon5 is a text-based RPG like Zork!
 
 requirements:
 - Python3.8
-- A LOVE FOR ADVENTURE!
 
-jk. this program is pretty terrible. But it works!
-
-
+Working on updating entirety of the program, adding features etc. It's working right now though. 
