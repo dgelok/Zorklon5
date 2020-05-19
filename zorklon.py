@@ -15,9 +15,10 @@ wraparound text
 
 import random
 
-cthulhu = ['Cthulhu', 300, 15]
-snake = ['Snekky Snek', 40, 5]
-shroom = ['Angry Mushroom', 100, 10]
+cthulhu = ['Cthulhu', 300, 20]
+snake = ['Snekky Snek', 50, 5]
+rockMonster = ['Rock Monster', 100, 10]
+shroom = ['Angry Mushroom', 120, 15]
 
 north = {
     'north': 1,
@@ -37,7 +38,8 @@ farnorth = {
     'mapDescript': 'Craggy Mountains',
     'aText': "You find yourself high in the mountains.",
     'aText2': "\tThe air is thin. \nThere are no plants, just rock and wind for miles.",
-    'items': 'metal ore'
+    'items': 'metal ore',
+    'monster': rockMonster,
 }
 
 northeast = {
@@ -86,7 +88,7 @@ west = {
     'mapDescript': 'Sunny Beach',
     'aText': "Leaving the ship, you walk along the beach.",
     'aText2': "\tIt is a beautiful day. \n\tThe only path leads back east to the ship.",
-    'items': 'Pulse Crystal'    
+    'items': 'pulse crystal dust'    
 }
 
 south = {
@@ -105,7 +107,7 @@ southeast = {
     'mapDescript': 'Evil Ocean Cave',
     'aText': "You step deeper and deeper into the dark waters. You find the entrance of an underwater cave.",
     'aText2': "Stepping over the broken body of the sea monster, you look around in the darkness...",
-    'items': 'Pulse Crystals',  
+    'items': 'pulse crystals',  
     'monster': cthulhu
 }
 
@@ -165,6 +167,7 @@ def myTurn():
             travel()
             break
         elif choice == "supplies":
+            supplies.sort()
             print("\n********** SUPPLIES **********")
             for i in supplies:
                 print("\t", i)
@@ -326,14 +329,15 @@ def workshop():
     print("You have the following to work from:")
     for n in supplies:
         print(n)
-    print("What would you like to work with?")
+    print("What would you like to work with? hit RETURN to go back to the ship.")
     workWith = input("> ")
     workWith = workWith.lower()
-    if workWith not in supplies:
+    if workWith == "":
+        myTurn()
+    elif workWith not in supplies:
         print("Sorry, you don't have that with you.")
         workshop()
-    
-    if workWith == 'gillyweed':
+    elif workWith == 'gillyweed':
         print("""You set to work on the gillyweed. 
         After several hours, you emerge with a breather.""")
         supplies.remove('gillyweed')
@@ -354,7 +358,7 @@ def workshop():
         supplies.append('spear')
         if 'blade' in supplies:
             print("""
-            \nAfter consideration, you realize that it isn't as strong as your blade.)
+            \nAfter consideration, you realize that it isn't as strong as your blade.
             You leave it here.""")
             supplies.remove('spear')
     elif workWith == 'metal ore':
@@ -365,7 +369,12 @@ def workshop():
         supplies.append('blade')
         if 'spear' in supplies:
             supplies.remove('spear')
-    elif workWith == 'Pulse Crystals':
+    elif workWith == 'pulse crystal dust':
+        print("""
+        You set to work on the pulse crystal dust.
+        After many days, you realize it is not enough to power the ship.
+        If only you could find more!!""")
+    elif workWith == 'pulse crystals':
         finish()
     else:
         print("Sorry, there's nothing you can do with that.")
