@@ -1,14 +1,15 @@
 """Still to do:
 
 backpack?
-restrict travel to the south
-write a finish
 fix 'run' mechanic in fights
+fix workshop else pulse crystals ???
+fix workshop 'quit' mechanics
 
 tweaks:
 balance food scarcity
 balance monster strength
 format to look nice
+wraparound text
 
 """
 
@@ -103,8 +104,8 @@ southeast = {
     'mapname': 'Southeast',
     'mapDescript': 'Evil Ocean Cave',
     'aText': "You step deeper and deeper into the dark waters. You find the entrance of an underwater cave.",
-    'aText2': "You are attacked by a vicious sea monster! \nIt has horrible teeth and nasty fangs! \aIt looks like Leonard Nimoy on Acid!",
-    'items': 'Pulse Crystal',  
+    'aText2': "Stepping over the broken body of the sea monster, you look around in the darkness...",
+    'items': 'Pulse Crystals',  
     'monster': cthulhu
 }
 
@@ -201,6 +202,16 @@ def travel():
         if direction in myLocation:
             destinationIndex = myLocation[direction]
             destination = locations[destinationIndex]
+            if destination == south:
+                if 'breather' in supplies:
+                    arrive(destination)
+                else:
+                    print("\n"*20)
+                    print("You see a vast ocean spreading off to the horizon.")
+                    print("You walk until you hit the waves. \nYou can go no further.")
+                    print("Hit ENTER to return to the ship.")
+                    input("> ")
+                    arrive(ship)
             arrive(destination)
         elif direction == 'home':
             if health <= 20:
@@ -354,6 +365,11 @@ def workshop():
         supplies.append('blade')
         if 'spear' in supplies:
             supplies.remove('spear')
+    elif workWith == 'Pulse Crystals':
+        finish()
+    else:
+        print("Sorry, there's nothing you can do with that.")
+        print("\n"*3)
 
 
     print("\n"*3)
@@ -374,6 +390,41 @@ def pickup(item):
 def dead(reason):
     print(reason)
     print("You died! Haha loser")
+    exit(0)
+
+def finish():
+    print("\n"*20)
+    print("For days, you delicately work on the pulse crystals.")
+    print("Any tiny mistake will mean the end of your ship. You'll be stranded here forever...")
+    print("\n"*3)
+    print("Hit ENTER to continue")
+    input("> ")
+    print("\n"*20)
+    print("Finally the crystals are calibrated. you install them in the ship's engine...")
+    print("\n"*3)
+    print("Hit ENTER to continue")
+    input("> ")
+    print("\n"*20)
+    print("With trembling fingers, you fire up the engine...")
+    print("\n"*3)
+    print("Hit ENTER to continue")
+    input("> ")
+    print("\n"*20)
+    print("IT WORKS!")
+    print("\n"*3)
+    print("Hit ENTER to continue")
+    input("> ")
+    print("\n"*20)
+    print("You point the ship towards the stars.")
+    print("With tears in your eyes, you vanish into the night.")
+    print("\n"*3)
+    print("Hit ENTER to continue")
+    input("> ")
+    print("\n"*20)
+    print("\t\tEND")
+    print("\n"*3)
+    print("Hit ENTER to quit")
+    input("> ")
     exit(0)
 
 health = 100
