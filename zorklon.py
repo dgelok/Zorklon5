@@ -1,9 +1,10 @@
 """Still to do:
 
 backpack?
-fix 'run' mechanic in fights
 fix workshop else pulse crystals ???
 fix workshop 'quit' mechanics
+fix south and ship intro (tabs)
+get out of travel?
 
 tweaks:
 balance food scarcity
@@ -15,10 +16,10 @@ wraparound text
 
 import random
 
-cthulhu = ['Cthulhu', 300, 20]
-snake = ['Snekky Snek', 50, 5]
-rockMonster = ['Rock Monster', 100, 10]
-shroom = ['Angry Mushroom', 120, 15]
+cthulhu = ['Cthulhu', 300, 20, 300]
+snake = ['Snekky Snek', 50, 5, 50]
+rockMonster = ['Rock Monster', 100, 10, 100]
+shroom = ['Angry Mushroom', 120, 15, 120]
 
 north = {
     'north': 1,
@@ -150,11 +151,12 @@ def start():
 def myTurn():
     global health
     while True:
-        print("What would you like to do? Type H for help.")
+        print("\nWhat would you like to do? Type H for help.")
         choice = input("> ")
         choice = choice.lower()
         
         if choice == 'h':
+            print("\n"*20)
             print("""You may do the following:
             travel
             supplies
@@ -168,6 +170,7 @@ def myTurn():
             break
         elif choice == "supplies":
             supplies.sort()
+            print("\n"*20)
             print("\n********** SUPPLIES **********")
             for i in supplies:
                 print("\t", i)
@@ -255,7 +258,7 @@ def fight(baddie):
 
     while True:
         if health <= 0:
-            dead("You just got dieded!")
+            dead(f"You have been slain by the {baddie[0]}!")
 
         # player's turn
         while True:
@@ -287,9 +290,16 @@ def fight(baddie):
                 else:
                     print("Your attack missed!\n")
                     break
-#            elif choice == 'run':
-#                arrive(ship)
-#                break
+            elif choice == 'run':
+                if health <= 20:
+                    dead("You collapse on the way home from exhaustion.")
+                baddie[1] = baddie[3]
+                print("\n"*20)
+                print("\t\t YOU ARE RUNNING AWAY\n\n\n")
+                print("Hit RETURN to continue.")
+                input("> ")
+                arrive(ship)
+                break
             else:
                 print("Sorry, you can't do that now!")
         
@@ -326,10 +336,10 @@ def eat():
 
 def workshop():
     global supplies
-    print("You have the following to work from:")
+    print("\nYou have the following to work from:")
     for n in supplies:
         print(n)
-    print("What would you like to work with? hit RETURN to go back to the ship.")
+    print("\nWhat would you like to work with? hit RETURN to go back to the ship.")
     workWith = input("> ")
     workWith = workWith.lower()
     if workWith == "":
@@ -378,7 +388,6 @@ def workshop():
         finish()
     else:
         print("Sorry, there's nothing you can do with that.")
-        print("\n"*3)
 
 
     print("\n"*3)
@@ -398,34 +407,35 @@ def pickup(item):
 
 def dead(reason):
     print(reason)
-    print("You died! Haha loser")
+    print("\n\n\nYou have died.")
+    print("\n\n\n\tGAME OVER\n\n\n")
     exit(0)
 
 def finish():
     print("\n"*20)
-    print("For days, you delicately work on the pulse crystals.")
-    print("Any tiny mistake will mean the end of your ship. You'll be stranded here forever...")
+    print("\tFor days, you delicately work on the pulse crystals.")
+    print("\tAny tiny mistake will mean the end of your ship. You'll be stranded here forever...")
     print("\n"*3)
     print("Hit ENTER to continue")
     input("> ")
     print("\n"*20)
-    print("Finally the crystals are calibrated. you install them in the ship's engine...")
+    print("\tFinally the crystals are calibrated. you install them in the ship's engine...")
     print("\n"*3)
     print("Hit ENTER to continue")
     input("> ")
     print("\n"*20)
-    print("With trembling fingers, you fire up the engine...")
+    print("\tWith trembling fingers, you fire up the engine...")
     print("\n"*3)
     print("Hit ENTER to continue")
     input("> ")
     print("\n"*20)
-    print("IT WORKS!")
+    print("\tIT WORKS!")
     print("\n"*3)
     print("Hit ENTER to continue")
     input("> ")
     print("\n"*20)
-    print("You point the ship towards the stars.")
-    print("With tears in your eyes, you vanish into the night.")
+    print("\tYou point the ship towards the stars.")
+    print("\tWith tears in your eyes, you vanish into the night.")
     print("\n"*3)
     print("Hit ENTER to continue")
     input("> ")
