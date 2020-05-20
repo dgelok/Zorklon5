@@ -1,8 +1,6 @@
 """Still to do:
 
 backpack?
-fix workshop else pulse crystals ???
-fix workshop 'quit' mechanics
 fix south and ship intro (tabs)
 get out of travel?
 
