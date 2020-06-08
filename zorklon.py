@@ -14,10 +14,12 @@ wraparound text
 
 import random
 
-cthulhu = ['Cthulhu', 300, 20, 300]
+cthulhu = ['Cthulhu', 200, 15, 300]
 snake = ['Snekky Snek', 50, 5, 50]
 rockMonster = ['Rock Monster', 100, 10, 100]
 shroom = ['Angry Mushroom', 120, 15, 120]
+keith = ['Normal Keith', 70, 10, 90]
+keiths_mom = ["Keith's Angry Mother", 100, 25, 100]
 
 north = {
     'north': 1,
@@ -47,7 +49,8 @@ northeast = {
     'mapDescript': 'Light Jungle',
     'aText': "The mountain pass begins to clear, you find yourself overlooking a sunny jungle.",
     'aText2': "\tIt is hot. \n\tThe only path leads back west.",
-    'items': 'flint'    
+    'items': 'flint',
+    'monster': keith
 }
 
 northwest = {
@@ -77,7 +80,7 @@ east = {
     'mapDescript': 'Damp Woods',
     'aText': "Leaving the ship, you follow the path into the woods.",
     'aText2': "\tIt is misty. \n\tThe only path leads back west to the ship.",
-    'items': 'Backpack',
+    'items': 'sticks and rocks',
     'monster': snake
 }
 
@@ -250,7 +253,7 @@ def fight(baddie):
         hit = 20
 
     if 'blade' in supplies:
-        hit = 40
+        hit = 30
     print("\n" * 20)
     print(f"You are attacked by a {baddie[0]}!")
 
@@ -279,7 +282,7 @@ def fight(baddie):
                 print("\n" * 20)
                 if myAttack >= 19:
                     print(f"CRITICAL HIT! \nYou have badly wounded the {baddie[0]}!\n")
-                    baddie[1] -= (hit * 2)
+                    baddie[1] -= (hit + 10)
                     break
                 elif myAttack >= 4:
                     print(f"You have wounded the {baddie[0]}!\n")
@@ -309,11 +312,11 @@ def fight(baddie):
         
         # baddie's turn
         print(f"The {baddie[0]} attacks!")
-        baddieAttack = random.randint(0,20)
+        baddieAttack = random.randint(1,21)
         if baddieAttack >= 18:
             print("CRITICAL HIT!\n")
             health -= (baddie[2] * 2)
-        elif baddieAttack >= 8:
+        elif baddieAttack >= 4:
             print("You are hit!\n")
             health -= baddie[2]
         else:
@@ -324,7 +327,7 @@ def eat():
     print("\n" *20)
     if 'food' in supplies:
         print("You eat the food and feel much better!")
-        health += 25
+        health += 20
         if health >= 100:
             health = 100
         print(f"Your health is now at {health}.\n")
@@ -334,58 +337,71 @@ def eat():
 
 def workshop():
     global supplies
-    print("\nYou have the following to work from:")
-    for n in supplies:
-        print(n)
-    print("\nWhat would you like to work with? hit RETURN to go back to the ship.")
-    workWith = input("> ")
-    workWith = workWith.lower()
-    if workWith == "":
-        myTurn()
-    elif workWith not in supplies:
-        print("Sorry, you don't have that with you.")
-        workshop()
-    elif workWith == 'gillyweed':
-        print("""You set to work on the gillyweed. 
-        After several hours, you emerge with a breather.""")
-        supplies.remove('gillyweed')
-        supplies.append('breather')
-    elif workWith == 'raw vegetables':
-        print("""
-        You set to work on the raw vegetables.
-        After several hours, you emerge with three pieces of food.""")
-        supplies.remove('raw vegetables')
-        supplies.append('food')
-        supplies.append('food')
-        supplies.append('food')
-    elif workWith == "flint":
-        print("""
-        You set to work on the flint.
-        After several hours, you emerge with a spear.""")
-        supplies.remove('flint')
-        supplies.append('spear')
-        if 'blade' in supplies:
-            print("""
-            \nAfter consideration, you realize that it isn't as strong as your blade.
-            You leave it here.""")
-            supplies.remove('spear')
-    elif workWith == 'metal ore':
-        print("""
-        You set to work with the metal ore.
-        After several hours, you emerge with a blade.""")
-        supplies.remove('metal ore')
-        supplies.append('blade')
-        if 'spear' in supplies:
-            supplies.remove('spear')
-    elif workWith == 'pulse crystal dust':
-        print("""
-        You set to work on the pulse crystal dust.
-        After many days, you realize it is not enough to power the ship.
-        If only you could find more!!""")
-    elif workWith == 'pulse crystals':
-        finish()
+    if 'tools' not in supplies:
+        if 'sticks and rocks' not in supplies:
+            print("\nYou have no tools. If only you could find some sticks and rocks!")
+            input("Hit RETURN to continue > ")
+        else:
+            toolChoice = input("Would you like to build some tools with your sticks and rocks? Y/N > ")
+            if toolChoice.lower() == "y":
+                print("""
+                You set to work on the sticks and rocks.
+                After several hours, you emerge with a set of tools. 
+                You can now work on other things!""")
+                supplies.append('tools')
+                supplies.remove('sticks and rocks')
     else:
-        print("Sorry, there's nothing you can do with that.")
+        print("\nYou have the following to work from:")
+        for n in supplies:
+            print(n)
+        print("\nWhat would you like to work with? hit RETURN to go back to the ship.")
+        workWith = input("> ")
+        workWith = workWith.lower()
+        if workWith == "":
+            myTurn()
+        elif workWith not in supplies:
+            print("Sorry, you don't have that with you.")
+            workshop()
+        elif workWith == 'gillyweed':
+            print("""You set to work on the gillyweed. 
+            After several hours, you emerge with a breather.""")
+            supplies.remove('gillyweed')
+            supplies.append('breather')
+        elif workWith == 'raw vegetables':
+            print("""
+            You set to work on the raw vegetables.
+            After several hours, you emerge with two pieces of food.""")
+            supplies.remove('raw vegetables')
+            supplies.append('food')
+            supplies.append('food')
+        elif workWith == "flint":
+            print("""
+            You set to work on the flint.
+            After several hours, you emerge with a spear.""")
+            supplies.remove('flint')
+            supplies.append('spear')
+            if 'blade' in supplies:
+                print("""
+                \nAfter consideration, you realize that it isn't as strong as your blade.
+                You leave it here.""")
+                supplies.remove('spear')
+        elif workWith == 'metal ore':
+            print("""
+            You set to work with the metal ore.
+            After several hours, you emerge with a blade.""")
+            supplies.remove('metal ore')
+            supplies.append('blade')
+            if 'spear' in supplies:
+                supplies.remove('spear')
+        elif workWith == 'pulse crystal dust':
+            print("""
+            You set to work on the pulse crystal dust.
+            After many days, you realize it is not enough to power the ship.
+            If only you could find more!!""")
+        elif workWith == 'pulse crystals':
+            finish()
+        else:
+            print("Sorry, there's nothing you can do with that.")
 
 
     print("\n"*3)
