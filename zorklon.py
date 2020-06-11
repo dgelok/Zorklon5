@@ -1,16 +1,9 @@
 """Still to do:
 
 backpack?
-fix south and ship intro (tabs)
 get out of travel?
-
-tweaks:
-balance food scarcity
-balance monster strength
-format to look nice
-wraparound text
-
 """
+
 
 import random
 
