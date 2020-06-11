@@ -1,6 +1,6 @@
 # Zorklon5!
 
-Zorklon5 (heroRPG.py) is a python-based RPG to be run on the command line. It was my first "big" self-developed project. 
+Zorklon5 is a python-based RPG to be run on the command line. It was my first "big" self-developed project. 
 
 
 ## Developed by
