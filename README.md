@@ -1,4 +1,4 @@
-# Hero RPG!
+# Zorklon5!
 
 Zorklon5 (heroRPG.py) is a python-based RPG to be run on the command line. It was my first "big" self-developed project. 
 
@@ -24,9 +24,9 @@ Dan Gelok
 
 ## Similar projects
 
-I've designed two more text-based RPG games that are similar in concept; [heroRPG](https://github.com/dgelok/heroRPG) and [Pyramid_Game](https://github.com/dgelok/pyramidGame). Both utilize OOP principles, but heroRPG is significantly larger, and was made as part of DigitalCrafts curriculum (June 2020 Houston cohort).
+I've designed two more text-based RPG games that are similar in concept; [heroRPG](https://github.com/dgelok/heroRPG) and [Pyramid_Game](https://github.com/dgelok/pyramidGame). Both utilize OOP principles, but heroRPG is significantly larger, and was made as part of DigitalCrafts curriculum (June 2020 Houston cohort). 
 
-Zorklon5.py was designed to develop my coding skills across a larger project. At the time of development, I did not know how to properly utilize classes or import other modules. It was started largely thanks to the help of Zed Shaw's excellent book, *Learn Python the Hard Way* (available [here](https://www.amazon.com/Learn-Python-Hard-Way-Introduction/dp/0134692888/ref=sr_1_1?keywords=python+the+hard+way&qid=1577465107&sr=8-1)).
+Zorklon5.py was designed to develop my coding skills across a larger project. At the time of development, I did not know how to properly utilize classes or import other modules. It was started largely thanks to the help of Zed Shaw's excellent book, *Learn Python the Hard Way* (available [here](https://www.amazon.com/Learn-Python-Hard-Way-Introduction/dp/0134692888/ref=sr_1_1?keywords=python+the+hard+way&qid=1577465107&sr=8-1)). The name is a homage to the classic RPG game Zork.
 
 
 ## How it works
