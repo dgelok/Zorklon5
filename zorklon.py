@@ -7,6 +7,8 @@ get out of travel?
 
 import random
 
+
+# monster variables. Name, HP, attack, and HP after player runs away.
 cthulhu = ['Cthulhu', 200, 15, 300]
 snake = ['Snekky Snek', 50, 5, 50]
 rockMonster = ['Rock Monster', 100, 10, 100]
