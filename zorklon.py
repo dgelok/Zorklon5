@@ -7,19 +7,21 @@ get out of travel?
 
 import random
 
-
+#this is seems to be broken into 2 main areas the variables and the "mini scripts" def
 # monster variables. Name, HP, attack, and HP after player runs away.
-cthulhu = ['Cthulhu', 200, 15, 300]
+cthulhu = ['Cthulhu', 200, 15, 300] # [monster_name, HP, attack_damage, HP after player runs away]
 snake = ['Snekky Snek', 50, 5, 50]
 rockMonster = ['Rock Monster', 100, 10, 100]
 shroom = ['Angry Mushroom', 120, 15, 120]
 keith = ['Normal Keith', 70, 10, 90]
 keiths_mom = ["Keith's Angry Mother", 100, 25, 100]
 
-north = {
-    'north': 1,
-    'south': 6,
-    'east': 4,
+
+
+north = {    # Is a Variable 1 of the 10 locations that a player can travel too with various things to do
+    'north': 1, #when you are in the north you can move farther north
+    'south': 6, #you can move south back to the ship
+    'east': 4, #assigning a number to the direction is how the program tracks where the players is at????
     'west': 2,
     'mapname': 'North',
     'mapDescript': 'Mountain Foothills',
@@ -29,13 +31,13 @@ north = {
 }
 
 farnorth = {
-    'south': 3,
-    'mapname': 'Far North',
+    'south': 3, # from the farnorth a player can only move south
+    'mapname': 'Far North', # types text to player when they are in current location
     'mapDescript': 'Craggy Mountains',
     'aText': "You find yourself high in the mountains.",
-    'aText2': "\tThe air is thin. \nThere are no plants, just rock and wind for miles.",
-    'items': 'metal ore',
-    'monster': rockMonster,
+    'aText2': "\tThe air is thin. \nThere are no plants, just rock and wind for miles.", #starts line with a tab then prints text. \n drops a line the prints text
+    'items': 'metal ore', # if player searches then they will find metal ore
+    'monster': rockMonster, # rockMonster will attack in farnorth
 }
 
 northeast = {
@@ -58,19 +60,19 @@ northwest = {
     'monster': shroom
 }
 
-ship = {
+ship = { # you have 4 basic directions you can "travel" to
     'north': 3,
     'east': 7,
     'west': 5,
     'south': 9,
     'mapname': 'Ship',
     'mapDescript': 'A wrecked spaceship',
-    'aText': "You are on your ship. It is safe here.",
-    'aText2': "After a night of rest, you feel refreshed. \nHealth at 100%"
+    'aText': "You are on your ship. It is safe here.", #prints this everytime you return to 6/ship
+    'aText2': "After a night of rest, you feel refreshed. \nHealth at 100%" #prints this everytime you return to 6/ship
 }
 
 east = {
-    'west': 6,
+    'west': 6, #deadend and you can only go west which brings you back to ship in 6
     'mapname': 'East',
     'mapDescript': 'Damp Woods',
     'aText': "Leaving the ship, you follow the path into the woods.",
@@ -80,41 +82,41 @@ east = {
 }
 
 west = {
-    'east': 6,
+    'east': 6, # deadend and you can only go east back to ship which is 6
     'mapname': 'West',
     'mapDescript': 'Sunny Beach',
     'aText': "Leaving the ship, you walk along the beach.",
     'aText2': "\tIt is a beautiful day. \n\tThe only path leads back east to the ship.",
-    'items': 'pulse crystal dust'    
+    'items': 'pulse crystal dust'
 }
 
 south = {
-    'north': 6,
-    'east': 10,
-    'west': 8,
+    'north': 6, #if you go north it will bring you back to 6 which is ship
+    'east': 10, # if you go east it will bring you to 10 which is southeast
+    'west': 8, # if you go west it will you you to 8 which is southwest
     'mapname': 'South',
     'mapDescript': 'Ocean',
     'aText': "You attach the breather, allowing you to breathe underwater!",
-    'aText2': "You step beneath the waves. You can travel east or west.",   
+    'aText2': "You step beneath the waves. You can travel east or west.",
 }
 
 southeast = {
-    'west': 9,
+    'west': 9, #if you go west it will bring you back to 9 which is south
     'mapname': 'Southeast',
     'mapDescript': 'Evil Ocean Cave',
     'aText': "You step deeper and deeper into the dark waters. You find the entrance of an underwater cave.",
     'aText2': "Stepping over the broken body of the sea monster, you look around in the darkness...",
-    'items': 'pulse crystals',  
+    'items': 'pulse crystals',
     'monster': cthulhu
 }
 
 southwest = {
-    'east': 9,
+    'east': 9, # if you go east it will bring you back to 9 which is south
     'mapname': 'Southwest',
     'mapDescript': 'Shallow Ocean Floor',
     'aText': "You walk along the bottom of the ocean.",
     'aText2': "Ancient shipwrecks around you, you see the distant lights above you. \nThe only way to go is back east.",
-    'items': 'raw vegetables'  
+    'items': 'raw vegetables'
 }
 
 locations = {
@@ -130,28 +132,28 @@ locations = {
     10: southeast
 }
 
-def start():
+def start(): # user starts game and this is the first script that is run
     """Commences the game."""
     print("\n" * 10)
     print("ZORKLON 5")
     print("\n" * 3)
-    print("""\tYour spaceship crash lands on Zorklon 5. 
+    print("""\tYour spaceship crash lands on Zorklon 5.
     Without the necessary Pulse Crystals, you cannot leave again.
     Nobody knows you are here. Nobody is coming to find you.
-    You stare at the sky in fear... 
+    You stare at the sky in fear...
     but immediately make a resolve to survive and find a way home.""")
     print("\n" * 3)
     print("Hit RETURN to continue.")
     input("> ")
 
-def myTurn():
+def myTurn(): #players first turn
     global health
     while True:
         print("\nWhat would you like to do? Type H for help.")
         choice = input("> ")
         choice = choice.lower()
-        
-        if choice == 'h':
+
+        if choice == 'h': # if h is pressed then it prints the below to give user the options
             print("\n"*20)
             print("""You may do the following:
             travel
@@ -161,7 +163,7 @@ def myTurn():
             eat
             map
             workshop""")
-        elif choice == 'travel':
+        elif choice == 'travel': #these are the potential user choices
             travel()
             break
         elif choice == "supplies":
@@ -185,7 +187,7 @@ def myTurn():
             if myLocation == ship:
                 workshop()
                 break
-            else: 
+            else:
                 print("You can only do this at the ship!")
         elif choice == "map":
             print("\n********** MAP **********")
@@ -194,12 +196,12 @@ def myTurn():
             print()
         else:
             print("Sorry, you cannot do that here.")
-        
-def travel():
-    global health
-    while True:
+
+def travel(): #this script runs when the player types travel then hits return
+    global health # is keeping track of the overall health of player and while health is true below line will run
+    while True: #
         print("Which direction would you like to go?")
-        direction = input("> ")
+        direction = input("> ") # "> " is waiting for user input
         direction = direction.lower()
         if direction in myLocation:
             destinationIndex = myLocation[direction]
@@ -298,13 +300,13 @@ def fight(baddie):
                 break
             else:
                 print("Sorry, you can't do that now!")
-        
+
         if baddie[1] <= 0:
             print(f"You have defeated the {baddie[0]}!\n")
             print("Hit RETURN to continue.")
             input("> ")
             break
-        
+
         # baddie's turn
         print(f"The {baddie[0]} attacks!")
         baddieAttack = random.randint(1,21)
@@ -341,7 +343,7 @@ def workshop():
             if toolChoice.lower() == "y":
                 print("""
                 You set to work on the sticks and rocks.
-                After several hours, you emerge with a set of tools. 
+                After several hours, you emerge with a set of tools.
                 You can now work on other things!""")
                 supplies.append('tools')
                 supplies.remove('sticks and rocks')
@@ -358,7 +360,7 @@ def workshop():
             print("Sorry, you don't have that with you.")
             workshop()
         elif workWith == 'gillyweed':
-            print("""You set to work on the gillyweed. 
+            print("""You set to work on the gillyweed.
             After several hours, you emerge with a breather.""")
             supplies.remove('gillyweed')
             supplies.append('breather')
